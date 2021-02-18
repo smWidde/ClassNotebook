@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<notes xmlns:android="http://schemas.android.com/apk/res/android">
+    <note>
+        <text>
+            Must work hard
+        </text>
+        <title>
+            Work
+        </title>
+        <year>2021</year>
+        <month>1</month>
+        <day>1</day>
+    </note>
+    <note>
+        <text>
+            Make Shrek meme
+        </text>
+        <title>
+            Job order 1
+        </title>
+        <year>2021</year>
+        <month>2</month>
+        <day>1</day>
+    </note>
+</notes>
