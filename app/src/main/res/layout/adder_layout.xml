@@ -23,18 +23,33 @@
 
                 <TextView
                     android:id="@+id/title_view"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Title" />
 
-                <EditText
-                    android:id="@+id/titleEditText"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="11"
-                    android:ems="10"
-                    android:inputType="text" />
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <EditText
+                        android:id="@+id/titleEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text" />
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:entries="@array/priority_array" />
+                </LinearLayout>
 
             </TableRow>
 
@@ -87,11 +102,38 @@
             android:id="@+id/editTextNote"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="12"
+            android:layout_weight="10"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:text="Write here!" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:insetLeft="6dp"
+                android:insetRight="6dp"
+                android:onClick="AddMedia"
+                android:text="Add media" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:insetLeft="6dp"
+                android:insetRight="6dp"
+                android:onClick="ShowMedia"
+                android:text="Show media" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -120,7 +162,7 @@
                 android:insetTop="2dp"
                 android:insetRight="2dp"
                 android:insetBottom="2dp"
-                android:onClick="ClearCLick"
+                android:onClick="ClearClick"
                 android:text="Clear" />
 
             <Button

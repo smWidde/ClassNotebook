@@ -12,14 +12,17 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 public class Note implements Serializable {
+    public int Id;
     public String Title;
     public Calendar Date;
     public String Text;
+    public Integer Priority;
     public Note()
     {
         Date = Calendar.getInstance();
+        Id=0;
     }
-    public Note(String Title, String Text, Calendar Date)
+    public Note(String Title, String Text, Calendar Date, Integer Priority)
     {
         this.Date = Calendar.getInstance();
         this.Date.set(Calendar.YEAR, Date.get(Calendar.YEAR));
@@ -27,6 +30,8 @@ public class Note implements Serializable {
         this.Date.set(Calendar.DAY_OF_MONTH, Date.get(Calendar.DAY_OF_MONTH));
         this.Title = Title;
         this.Text = Text;
+        this.Priority = Priority;
+        Id=0;
     }
     public Note(byte[] bytes)
     {
@@ -42,6 +47,8 @@ public class Note implements Serializable {
             this.Date.set(Calendar.MONTH, n.Date.get(Calendar.MONTH));
             this.Date.set(Calendar.DAY_OF_MONTH, n.Date.get(Calendar.DAY_OF_MONTH));
             this.Text = n.Text;
+            this.Priority = n.Priority;
+            this.Id = n.Id;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

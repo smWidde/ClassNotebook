@@ -3,43 +3,51 @@ package com.example.classnotebook;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<Note> arr;
-    private ArrayAdapter<Note> arr_adap;
+    private PriorityArrayAdapter arr_adap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        NoteXmlParser nxp = new NoteXmlParser();
-
-        if(nxp.parse(getResources().getXml(R.xml.notes)))
-        {
-            arr = nxp.getNotes();
-        }
-        else
-        {
-            arr = new ArrayList<>();
-        }
-        Bundle extra= getIntent().getExtras();
+        NotesDatabase nd = new NotesDatabase(getBaseContext());
+        Bundle extra = getIntent().getExtras();
         if(extra!=null)
         {
+            String mode = extra.getString("mode");
             Note note = (Note)extra.get("note");
-            if(note!=null)
+            if(note!=null&&mode!=null)
             {
-                arr.add(note);
+                if(mode.equals("a"))
+                    nd.addNote(note);
+                else if(mode.equals("e"))
+                    nd.editNote(note.Id, note);
             }
         }
-        arr_adap = new ArrayAdapter<Note>(this, R.layout.support_simple_spinner_dropdown_item, arr);
         ListView lv = findViewById(R.id.list);
+        arr_adap = new PriorityArrayAdapter(this, nd.notes);
         lv.setAdapter(arr_adap);
+        lv.setOnItemClickListener((parent, view, position, id)->{
+            Intent i = new Intent(this, AdderActivity.class);
+            Note tmp = nd.notes.get(position);
+            Note n = new Note(tmp.Title, tmp.Text, tmp.Date, tmp.Priority);
+            n.Id = tmp.Id;
+            i.putExtra("note", n);
+            startActivity(i);
+        });
     }
+
     public void addNoteClick(View view)
     {
         Intent i = new Intent(this, AdderActivity.class);
